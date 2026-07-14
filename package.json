@@ -4,7 +4,7 @@
   "description": "Created as part of The Odin Project Curriculum",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack serve --config webpack.dev.js"
   },
