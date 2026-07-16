@@ -11,8 +11,20 @@ function ship(length) {
 			return true;
 		};
 	};
+	return {
+		defenses,
+		damages,
+		hit,
+		isSunk,
+	};
 };
 
 function gameboard() {};
 
 function player() {};
+
+export { 
+	ship,
+	gameboard,
+	player,
+};
