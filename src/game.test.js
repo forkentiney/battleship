@@ -4,6 +4,7 @@ import {
 	player,
 } from './game.js';
 
-test('Created Carrier', () => {
-	expect(ship(5).defenses).toBe(5);
+test('Created Patrol Boat', () => {
+	expect(ship(5).defenses).toBe(2);
+	expect(ship(5).name).toBe("Patrol Boat");
 });

@@ -1,17 +1,46 @@
-function ship(length) {
-	const defenses = length;
+import { createLinkedList } from "./linked-list.js";
+
+function ship(id) {
+	const getDetails = () => {
+		if (id === 1) {
+			const name = "Carrier";
+			const shipLength = 5;
+			return { name, shipLength };
+		} else if (id === 2) {
+			const name = "Battleship";
+			const shipLength = 4;
+			return { name, shipLength };
+		} else if (id === 3) {
+			const name = "Destroyer";
+			const shipLength = 3;
+			return { name, shipLength };
+		} else if (id === 4) {
+			const name = "Submarine"
+			const shipLength = 3;
+			return { name, shipLength };
+		} else if (id === 5) {
+			const name = "Patrol Boat";
+			const shipLength = 2;
+			return { name, shipLength };
+		} else {
+			throw new Error("Not a valid ship ID");
+		};
+	};
+	const defenses = getDetails().shipLength;
+	const name = getDetails().name;
 	let damages = 0;
 	const hit = () => {
 		damages++;
 	};
 	const isSunk = () => {
-		if (defenses > damages) {
+		if (defenses >= damages) {
 			return false;
 		} else {
 			return true;
 		};
 	};
 	return {
+		name,
 		defenses,
 		damages,
 		hit,
@@ -20,18 +49,11 @@ function ship(length) {
 };
 
 function gameboard() {
-	const board = [ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-									[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-									[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-									[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-									[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-									[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-									[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-									[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-									[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-									[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], ];
-	const placeShip = (coordinate, orientation) => {
-		// Take the starting coordinate and
+	const shipPlacements = [];
+	const hits = [];
+	const misses = [];
+	const placeShip = (ship, coordinate, orientation) => {
+		// Take the starting coordinate
 		const x = coordinate[0];
 		const y = coordinate[1];
 		// Make each ship have n number of coords stored in an array:
