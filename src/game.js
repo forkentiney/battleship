@@ -59,16 +59,42 @@ function gameBoard() {
 		// Take the starting coordinate
 		const x = coordinate[0];
 		const y = coordinate[1];
+		const possibleCoords = [];
 		if (orientation === "horizontal") {
 			for (let i = 0; i < ship.defenses; i++) {
-				ship.placement.push([x + i, y]);
+				possibleCoords.push([x + i, y]);
 			};
 		} else if (orientation === "vertical") {
 			for (let i = 0; i < ship.defenses; i++) {
-				ship.placement.push([x, y + i]);
+				possibleCoords.push([x, y - i]);
 			};
 		};
-		shipPlacements.push(ship);
+		const isValid = () => {
+			if (shipPlacements.length === 0) return true;
+			possibleCoords.forEach((coord) => {
+				const newX = coord[0];
+				const newY = coord[1];
+				shipPlacements.forEach((ship) => {
+					ship.placement.forEach((place) => {
+						const takenX = place[0];
+						const takenY = place[1];
+						if (newX === takenX && newY === takenY) {
+							return false;
+						} else {
+							return true;
+						};
+					});
+				});
+			});
+		};
+		if (isValid()) {
+			possibleCoords.forEach((coord) => {
+				ship.placement.push(coord);
+			});
+			shipPlacements.push(ship);
+		} else {
+			return "Invalid location";
+		};
 		// Make each ship have n number of coords stored in an array:
 		// shipCoords = []. Check that shipCoords does not contain any other
 		// taken coords which are stored in a main gameboard array. If they
@@ -76,14 +102,6 @@ function gameBoard() {
 		// each ship coord into the main array. When the game is played, if
 		// a coord is not in the main array, register a miss. There's no 
 		// need for the board array with this method.
-		for (let i = 0; i < ship.length; i++) {
-			if (board[x][y] === 1) {
-
-			}
-		}
-		// the orientation of a ship.
-	  // Check that the space is not occupied
-		// and place the ship.
 	};
 
 	return {
