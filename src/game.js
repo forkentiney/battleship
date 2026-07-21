@@ -59,6 +59,7 @@ function gameBoard() {
 		// Take the starting coordinate
 		const x = coordinate[0];
 		const y = coordinate[1];
+		// Find the desired coordinates of placed ship
 		const possibleCoords = [];
 		if (orientation === "horizontal") {
 			for (let i = 0; i < ship.defenses; i++) {
@@ -69,6 +70,8 @@ function gameBoard() {
 				possibleCoords.push([x, y - i]);
 			};
 		};
+		// Check if those coordinates overlap with any others
+		// Could possibly used to test hits
 		const isValid = () => {
 			if (shipPlacements.length === 0) return true;
 			possibleCoords.forEach((coord) => {
@@ -87,6 +90,7 @@ function gameBoard() {
 				});
 			});
 		};
+		// Place ship on board or return error
 		if (isValid()) {
 			possibleCoords.forEach((coord) => {
 				ship.placement.push(coord);
