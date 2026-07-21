@@ -1,5 +1,3 @@
-import { createLinkedList } from "./linked-list.js";
-
 function ship(id) {
 	const getDetails = () => {
 		if (id === 1) {
@@ -72,7 +70,6 @@ function gameBoard() {
 			};
 		};
 		// Check if those coordinates overlap with any others
-		// Could possibly used to test hits
 		const isValid = () => {
 			const checkCoords = (coordinate) => {
 				return coordinate[0] <= 9 && coordinate[1] >= 0;
