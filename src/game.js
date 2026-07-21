@@ -28,6 +28,7 @@ function ship(id) {
 	};
 	const defenses = getDetails().shipLength;
 	const name = getDetails().name;
+	const placement = [];
 	let damages = 0;
 	const hit = () => {
 		damages++;
@@ -42,13 +43,15 @@ function ship(id) {
 	return {
 		name,
 		defenses,
+		placement,
 		damages,
 		hit,
 		isSunk,
 	};
 };
 
-function gameboard() {
+function gameBoard() {
+	const shipIDs = [1, 2, 3, 4, 5];
 	const shipPlacements = [];
 	const hits = [];
 	const misses = [];
@@ -56,6 +59,16 @@ function gameboard() {
 		// Take the starting coordinate
 		const x = coordinate[0];
 		const y = coordinate[1];
+		if (orientation === "horizontal") {
+			for (let i = 0; i < ship.defenses; i++) {
+				ship.placement.push([x + i, y]);
+			};
+		} else if (orientation === "vertical") {
+			for (let i = 0; i < ship.defenses; i++) {
+				ship.placement.push([x, y + i]);
+			};
+		};
+		shipPlacements.push(ship);
 		// Make each ship have n number of coords stored in an array:
 		// shipCoords = []. Check that shipCoords does not contain any other
 		// taken coords which are stored in a main gameboard array. If they
@@ -72,12 +85,17 @@ function gameboard() {
 	  // Check that the space is not occupied
 		// and place the ship.
 	};
+
+	return {
+		shipPlacements,
+		placeShip,
+	}
 };
 
 function player() {};
 
 export { 
 	ship,
-	gameboard,
+	gameBoard,
 	player,
 };
