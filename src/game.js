@@ -33,7 +33,7 @@ function ship(id) {
 		damages++;
 	};
 	const isSunk = () => {
-		if (defenses >= damages) {
+		if (defenses > damages) {
 			return false;
 		} else {
 			return true;
