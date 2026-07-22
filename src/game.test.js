@@ -26,8 +26,8 @@ test('Ship must be on board', () => {
 	expect(board.placeShip(ship(2), [0, 2], "vertical")).toBe("Invalid location");
 });
 
-test('Ships cannot overlap', () => {
+test('Ships cannot overlap', () => { // This test does not work
 	const board = gameBoard();
 	board.placeShip(ship(1), [0, 0], "horizontal");
-	expect(board.placeShip(ship(2), [0, 3], "vertical")).toBe("Invalid location");
+	expect(board.placeShip(ship(2), [1, 3], "horizontal")).toBe("Invalid location");
 });
