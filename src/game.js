@@ -71,29 +71,50 @@ function gameBoard() {
 		};
 		// Check if those coordinates overlap with any others
 		const isValid = () => {
-			const checkCoords = (coordinate) => {
+			const isOnBoard = (coordinate) => {
 				return coordinate[0] <= 9 && coordinate[1] >= 0;
 			};
-			if (possibleCoords.every(checkCoords) === false) {
+			const checkMatch = (placement) => {
+				for (let i = 0; i < possibleCoords.length; i++) {
+					if (possibleCoords[i][0] === placement[0] && possibleCoords[i][1] === placement[1]) {
+						return false;
+					};
+				};
+			};
+			const checkPlacement = (ship) => {
+				return ship.placement.every(checkMatch);
+			};
+			const isOverLapping = (object, coordinate) => {
+				for (let i = 0; i < object.placement.length; i++) {
+					if (object.placement[i][0] === coordinate[0] && object.placement[i][1] === coordinate[1]) return false;
+				};
+			};
+
+			if (possibleCoords.every(isOnBoard) === false) {
 				return false;
 			} else if (shipPlacements.length === 0) {
 				return true;
 			} else {
-				possibleCoords.forEach((coord) => {
-					const newX = coord[0];
-					const newY = coord[1];
-					shipPlacements.forEach((ship) => {
-						ship.placement.forEach((place) => {
-							const takenX = place[0];
-							const takenY = place[1];
-							if (newX === takenX && newY === takenY) {
-								return false;
-							} else {
-								return true;
-							};
-						});
-					});
-				});
+				return true;
+//				for (let i = 0; i < possibleCoords.length; i++) {
+//					return shipPlacements.every(isOverLapping, possibleCoords[i]);
+//				};
+//				return shipPlacements.every(checkPlacement);
+//				possibleCoords.forEach((coord) => {
+//					const newX = coord[0];
+//					const newY = coord[1];
+//					shipPlacements.forEach((boat) => {
+//						boat.placement.forEach((place) => {
+//							const takenX = place[0];
+//							const takenY = place[1];
+//							if (newX === takenX && newY === takenY) {
+//								return false;
+//							} else {
+//								return true;
+//							};
+//						});
+//					});
+//				});
 			};
 		};
 		// Place ship on board or return error
