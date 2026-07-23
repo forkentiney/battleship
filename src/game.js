@@ -89,13 +89,11 @@ function gameBoard() {
 			} else if (shipPlacements.length === 0) {
 				return true;
 			} else {
-				for (let i = 0; i < shipPlacements.length; i++) {
-					const placedShipCoordsArray = shipPlacements[i].placement;
-					for (let i = 0; i < placedShipCoordsArray.length; i++) {
-						const placedCoord = placedShipCoordsArray[i];
-						for (let i = 0; i < possibleCoords.length; i++) {
-							const newCoord = possibleCoords[i]
-							if (isOverlap(placedCoord, newCoord)) return false;
+				for (const ship of shipPlacements) {
+					const placement = ship.placement;
+					for (const coord of placement) {
+						for (const newCoord of possibleCoords) {
+							if (isOverlap(newCoord, coord)) return false;
 						};
 					};
 				};
