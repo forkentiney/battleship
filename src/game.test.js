@@ -54,4 +54,12 @@ test('Ships can be hit', () => {
 	expect(board.shipPlacements[1].hits()).toBe(0);
 	board.receiveAttack([2, 4]);
 	expect(board.shipPlacements[1].hits()).toBe(1);
+	expect(board.hits.length).toBe(1);
+});
+
+test('Ships can be missed', () => {
+	const board = gameBoard();
+	board.placeShip(ship(1), [0, 0], "horizontal");
+	board.receiveAttack([9, 9]);
+	expect(board.misses.length).toBe(1);
 });

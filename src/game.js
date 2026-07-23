@@ -131,6 +131,8 @@ function gameBoard() {
 		shipPlacements,
 		placeShip,
 		receiveAttack,
+		misses,
+		hits,
 	};
 };
 
