@@ -28,6 +28,9 @@ function ship(id) {
 	const name = getDetails().name;
 	const placement = [];
 	let damages = 0;
+	const hits = () => {
+		return damages;
+	}
 	const hit = () => {
 		damages++;
 	};
@@ -42,7 +45,7 @@ function ship(id) {
 		name,
 		defenses,
 		placement,
-		damages,
+		hits,
 		hit,
 		isSunk,
 	};
@@ -53,6 +56,14 @@ function gameBoard() {
 	const shipPlacements = [];
 	const hits = [];
 	const misses = [];
+	const isOverlap = (coordA, coordB) => {
+		for (let i = 0; i < 2; i++) {
+			if (coordA[i] !== coordB[i]) {
+				return false;
+			};
+		};
+		return true;
+	};
 	const placeShip = (ship, coordinate, orientation) => {
 		// Take the starting coordinate
 		const x = coordinate[0];
@@ -75,14 +86,6 @@ function gameBoard() {
 				return coordinate[0] <= 9 && coordinate[1] >= 0;
 			};
 
-			const isOverlap = (coordA, coordB) => {
-				for (let i = 0; i < 2; i++) {
-					if (coordA[i] !== coordB[i]) {
-						return false;
-					};
-				};
-				return true;
-			};
 
 			if (!possibleCoords.every(isOnBoard)) {
 				return false;
@@ -110,11 +113,25 @@ function gameBoard() {
 			return "Invalid location";
 		};
 	};
+	const receiveAttack = (coordinate) => {
+		for (let i = 0; i < shipPlacements.length; i++) {
+			const placement = shipPlacements[i].placement;
+			for (const coord of placement) {
+				if (isOverlap(coord, coordinate)) {
+					shipPlacements[i].hit();
+					hits.push(coordinate);
+					return;
+				};
+			};
+		misses.push(coordinate);
+		};
+	};
 
 	return {
 		shipPlacements,
 		placeShip,
-	}
+		receiveAttack,
+	};
 };
 
 function player() {};

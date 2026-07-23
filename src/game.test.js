@@ -9,6 +9,12 @@ test('Created Patrol Boat', () => {
 	expect(ship(5).name).toBe("Patrol Boat");
 });
 
+test('Hit function works', () => {
+	const newShip = ship(1);
+	newShip.hit();
+	expect(newShip.hits()).toBe(1);
+});
+
 test('Place ship horizontally on board', () => {
 	const board = gameBoard();
 	board.placeShip(ship(1), [0, 0], "horizontal");
@@ -39,4 +45,13 @@ test('Ships cannot overlap', () => { // This test does not work
 	const board = gameBoard();
 	board.placeShip(ship(1), [0, 0], "horizontal");
 	expect(board.placeShip(ship(2), [0, 3], "vertical")).toBe("Invalid location");
+});
+
+test('Ships can be hit', () => {
+	const board = gameBoard();
+	board.placeShip(ship(1), [0, 0], "horizontal");
+	board.placeShip(ship(2), [1, 4], "horizontal");
+	expect(board.shipPlacements[1].hits()).toBe(0);
+	board.receiveAttack([2, 4]);
+	expect(board.shipPlacements[1].hits()).toBe(1);
 });
