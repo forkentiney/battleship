@@ -109,13 +109,6 @@ function gameBoard() {
 		} else {
 			return "Invalid location";
 		};
-		// Make each ship have n number of coords stored in an array:
-		// shipCoords = []. Check that shipCoords does not contain any other
-		// taken coords which are stored in a main gameboard array. If they
-		// are in the main array, return an error. If they are not, push the
-		// each ship coord into the main array. When the game is played, if
-		// a coord is not in the main array, register a miss. There's no 
-		// need for the board array with this method.
 	};
 
 	return {
