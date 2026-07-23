@@ -55,6 +55,7 @@ test('Ships can be hit', () => {
 	board.receiveAttack([2, 4]);
 	expect(board.shipPlacements[1].hits()).toBe(1);
 	expect(board.hits.length).toBe(1);
+	expect(board.misses.length).toBe(0);
 });
 
 test('Ships can be missed', () => {
@@ -62,4 +63,17 @@ test('Ships can be missed', () => {
 	board.placeShip(ship(1), [0, 0], "horizontal");
 	board.receiveAttack([9, 9]);
 	expect(board.misses.length).toBe(1);
+	expect(board.hits.length).toBe(0);
 });
+
+test('Gameboard skips already chosen attacks', () => {
+	const board = gameBoard();
+	board.placeShip(ship(1), [0, 0], "horizontal");
+	board.receiveAttack([9, 9]);
+	board.receiveAttack([0, 0]);
+	expect(board.receiveAttack([11, -2])).toBe("Not on gameboard");
+	expect(board.receiveAttack([9, 9])).toBe("Already missed location");
+	expect(board.receiveAttack([0, 0])).toBe("Already hit location");
+	expect(board.misses.length).toBe(1);
+	expect(board.hits.length).toBe(1);
+})

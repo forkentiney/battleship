@@ -64,6 +64,9 @@ function gameBoard() {
 		};
 		return true;
 	};
+	const isOnBoard = (coordinate) => {
+		return coordinate[0] <= 9 && coordinate[1] >= 0;
+	};
 	const placeShip = (ship, coordinate, orientation) => {
 		// Take the starting coordinate
 		const x = coordinate[0];
@@ -82,11 +85,6 @@ function gameBoard() {
 		};
 		// Check if those coordinates overlap with any others
 		const isValid = () => {
-			const isOnBoard = (coordinate) => {
-				return coordinate[0] <= 9 && coordinate[1] >= 0;
-			};
-
-
 			if (!possibleCoords.every(isOnBoard)) {
 				return false;
 			} else if (shipPlacements.length === 0) {
@@ -114,6 +112,16 @@ function gameBoard() {
 		};
 	};
 	const receiveAttack = (coordinate) => {
+		// Check if selection is on board
+		if (!isOnBoard(coordinate)) return "Not on gameboard";
+		// Check if selection has already been chosen
+		for (const hit of hits) {
+			if (isOverlap(hit, coordinate)) return "Already hit location";
+		};
+		for (const miss of misses) {
+			if (isOverlap(miss, coordinate)) return "Already missed location";
+		}
+		// Check if selection hits a ship
 		for (let i = 0; i < shipPlacements.length; i++) {
 			const placement = shipPlacements[i].placement;
 			for (const coord of placement) {
@@ -123,8 +131,8 @@ function gameBoard() {
 					return;
 				};
 			};
-		misses.push(coordinate);
 		};
+		misses.push(coordinate);
 	};
 
 	return {
