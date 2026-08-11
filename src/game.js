@@ -135,12 +135,20 @@ function gameBoard() {
 		misses.push(coordinate);
 	};
 
+	const areAllShipsSunk = () => {
+		for (let i = 0; i < shipPlacements.length; i++) {
+			if (shipPlacements[i].isSunk() === false) return false;
+		};
+		return true;
+	};
+
 	return {
 		shipPlacements,
 		placeShip,
 		receiveAttack,
 		misses,
 		hits,
+		areAllShipsSunk,
 	};
 };
 
