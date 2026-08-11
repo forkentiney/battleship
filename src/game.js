@@ -152,7 +152,9 @@ function gameBoard() {
 	};
 };
 
-function player() {};
+function player() {
+	const board = gameBoard();
+};
 
 export { 
 	ship,
