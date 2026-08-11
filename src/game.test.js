@@ -76,4 +76,15 @@ test('Gameboard skips already chosen attacks', () => {
 	expect(board.receiveAttack([0, 0])).toBe("Already hit location");
 	expect(board.misses.length).toBe(1);
 	expect(board.hits.length).toBe(1);
-})
+});
+
+test('Gameboard checks whether all ships are sunk', () => {
+	const board = gameBoard();
+	board.placeShip(ship(5), [0, 0], "horizontal");
+	expect(board.areAllShipsSunk()).toBeFalsy();
+	board.receiveAttack([0, 0]);
+	board.receiveAttack([1, 0]);
+	expect(board.areAllShipsSunk()).toBeTruthy();
+	board.placeShip(ship(1), [9, 9], "vertical");
+	expect(board.areAllShipsSunk()).toBeFalsy();
+});
