@@ -1,0 +1,53 @@
+:root {
+	--bg-pane: hsl(0 0% 15%);
+	--pane-light: hsl(75 6% 87%);
+	--pane-dark: hsl(211 53% 11%);
+	--surface-light: hsl(189 75% 75%);
+	--surface-medium: hsl(201 100% 36%);
+	--surface-dark: hsl(239 94% 19%);
+	--overlay-light: hsl(215 23% 56%);
+	--overlay-medium: hsl(215 37% 17%);
+	--overlay-dark: hsl(215 53% 11%);
+	--text: hsl(75 5% 90%);
+	--subtext-light: hsl(75 5% 85%);
+	--subtitle: hsl(75 5% 80%);
+	--subtext-dark: hsl(75 5% 70%);
+	--red: hsl(1 100% 36%);
+	--white: hsl(0 0% 100%);
+}
+
+* {
+  margin: 0px;
+  padding: 0px; 
+  border: 0px;
+  font-size: 100%;
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  box-sizing: border-box;
+  color: inherit;
+  background-color: inherit;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	background-color: var(--bg-pane);
+	font-size: 18px;
+	line-height: 1.5;
+	overflow-wrap: break-word;
+	text-wrap: pretty;
+	color: var(--text);
+}
+
+header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+h1 {
+	color: var(--text);
+	font-size: 72px;
+	font-weight: 900;
+}
