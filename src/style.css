@@ -51,3 +51,22 @@ h1 {
 	font-size: 72px;
 	font-weight: 900;
 }
+
+.gameboard {
+	background-color: var(--surface-medium);
+	width: 35vw;
+	border: 1px solid black;
+	aspect-ratio: 1 / 1;
+	display: grid;
+	grid-template-rows: repeat(10, 1fr);
+	grid-template-columns: repeat(10, 1fr);
+	gap: 1px;
+}
+
+.cell {
+	aspect-ratio: 1 / 1;
+}
+
+.cell::hover {
+	background-color: var(--bg-light);
+}
