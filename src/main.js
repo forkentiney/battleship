@@ -14,6 +14,26 @@ const playerCells = document.querySelectorAll("#player > *");
 const compCells = document.querySelectorAll("#computer > *");
 
 const computerBoard = gameBoard();
+const playerGameBoard = gameBoard();
+
+const placeComputerShips = (() => {
+	// This function should place ships randomly.
+	// For now, placements are static.
+	computerBoard.placeShip(ship(1), [6, 6], "vertical");
+	computerBoard.placeShip(ship(2), [0, 2], "horizontal");
+	computerBoard.placeShip(ship(3), [1, 8], "horizontal");
+	computerBoard.placeShip(ship(4), [2, 6], "vertical");
+	computerBoard.placeShip(ship(5), [8, 8], "horizontal");
+})();
+const placePlayerShips = (() => {
+	// This function should place ships randomly.
+	// For now, placements are static.
+	playerGameBoard.placeShip(ship(1), [6, 6], "vertical");
+	playerGameBoard.placeShip(ship(2), [0, 2], "horizontal");
+	playerGameBoard.placeShip(ship(3), [1, 8], "horizontal");
+	playerGameBoard.placeShip(ship(4), [2, 6], "vertical");
+	playerGameBoard.placeShip(ship(5), [8, 8], "horizontal");
+})();
 
 playerCells.forEach(cell => {
 	cell.addEventListener("click", () => {
@@ -23,12 +43,16 @@ playerCells.forEach(cell => {
 });
 
 compCells.forEach(cell => {
-	cell.addEventListener("click", () => checkHit(computerBoard, cell));
+	cell.addEventListener("click", () => playGame(computerBoard, cell));
 });
 
-computerBoard.placeShip(ship(2), [0, 2], "horizontal");
+function computerMove() {
+	const coord = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+	const cell = document.querySelector(`#p${coord[0]}${coord[1]}`);
+	playGame(playerGameBoard, cell);
+};
 
-function checkHit(board, spot) {
+function playGame(board, spot) {
 	const coord = [parseInt(spot.id.charAt(1)), parseInt(spot.id.charAt(2))];
 	const result = board.receiveAttack(coord);
 	console.log(result);
@@ -37,8 +61,12 @@ function checkHit(board, spot) {
 	} else if (result === "You missed.") {
 		updateCell(spot, "white");
 	} else {
-		updateCell(spot, "shake");
+		if (spot.id.charAt(0) === "c") {
+			updateCell(spot, "shake");
+			return;
+		} else computerMove();
 	};
+	if (spot.id.charAt(0) === "c") computerMove();
 	return result;
 };
 
