@@ -15,6 +15,16 @@ const compCells = document.querySelectorAll("#computer > *");
 
 const computerBoard = gameBoard();
 
+const placeComputerShips = (() => {
+	// This function should place ships randomly.
+	// For now, placements are static.
+	computerBoard.placeShip(ship(1), [6, 6], "vertical");
+	computerBoard.placeShip(ship(2), [0, 2], "horizontal");
+	computerBoard.placeShip(ship(3), [1, 8], "horizontal");
+	computerBoard.placeShip(ship(4), [2, 6], "vertical");
+	computerBoard.placeShip(ship(5), [8, 8], "horizontal");
+})();
+
 playerCells.forEach(cell => {
 	cell.addEventListener("click", () => {
 		updateCell(cell, "shake");
@@ -25,8 +35,6 @@ playerCells.forEach(cell => {
 compCells.forEach(cell => {
 	cell.addEventListener("click", () => checkHit(computerBoard, cell));
 });
-
-computerBoard.placeShip(ship(2), [0, 2], "horizontal");
 
 function checkHit(board, spot) {
 	const coord = [parseInt(spot.id.charAt(1)), parseInt(spot.id.charAt(2))];
