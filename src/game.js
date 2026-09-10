@@ -128,11 +128,12 @@ function gameBoard() {
 				if (isOverlap(coord, coordinate)) {
 					shipPlacements[i].hit();
 					hits.push(coordinate);
-					return;
+					return "You hit!";
 				};
 			};
 		};
 		misses.push(coordinate);
+		return "You missed.";
 	};
 
 	const areAllShipsSunk = () => {
