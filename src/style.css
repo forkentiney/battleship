@@ -64,7 +64,7 @@ h1 {
 	display: grid;
 	grid-template-rows: repeat(11, 1fr);
 	grid-template-columns: repeat(11, 1fr);
-	gap: 1px;
+	gap: 2px;
 }
 
 .cell {
