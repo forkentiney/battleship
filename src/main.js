@@ -16,15 +16,31 @@ const compCells = document.querySelectorAll("#computer > *");
 const computerBoard = gameBoard();
 const playerGameBoard = gameBoard();
 
+const createCoord = () => {
+	const coord = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+	return coord;
+};
+
+const createOrientation = () => {
+	const coinflip = Math.round(Math.random());
+	if (coinflip === 0) {
+		return "vertical";
+	} else if (coinflip === 1) {
+		return "horizontal";
+	};
+};
+
 const placeComputerShips = (() => {
-	// This function should place ships randomly.
-	// For now, placements are static.
-	computerBoard.placeShip(ship(1), [6, 6], "vertical");
-	computerBoard.placeShip(ship(2), [0, 2], "horizontal");
-	computerBoard.placeShip(ship(3), [1, 8], "horizontal");
-	computerBoard.placeShip(ship(4), [2, 6], "vertical");
-	computerBoard.placeShip(ship(5), [8, 8], "horizontal");
+	for (let i = 1; i < 6; i++) {
+		function placeShip() {
+			const coord = createCoord();
+			const orientation = createOrientation();
+			if (computerBoard.placeShip(ship(i), coord, orientation) === "Invalid location") placeShip();
+		};
+		placeShip();
+	};
 })();
+
 const placePlayerShips = (() => {
 	// This function should place ships randomly.
 	// For now, placements are static.

@@ -108,6 +108,7 @@ function gameBoard() {
 			});
 			shipPlacements.push(ship);
 		} else {
+			console.log("Ship attempted wrong placement");
 			return "Invalid location";
 		};
 	};
