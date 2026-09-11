@@ -59,24 +59,32 @@ h1 {
 }
 
 .gameboard {
-	background-color: var(--surface-medium);
 	width: 35vw;
-	border: 1px solid black;
 	aspect-ratio: 1 / 1;
 	display: grid;
-	grid-template-rows: repeat(10, 1fr);
-	grid-template-columns: repeat(10, 1fr);
+	grid-template-rows: repeat(11, 1fr);
+	grid-template-columns: repeat(11, 1fr);
 	gap: 1px;
 }
 
 .cell {
+	background-color: var(--surface-medium);
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	aspect-ratio: 1 / 1;
 	font-weight: 900;
 	font-size: 24px;
-	border: 1px solid black;
+	user-select: none;
+}
+
+.gameboard p {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	aspect-ratio: 1 / 1;
+	font-weight: 900;
+	font-size: 14px;
 	user-select: none;
 }
 
