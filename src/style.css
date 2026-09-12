@@ -51,15 +51,23 @@ h1 {
 	font-weight: 900;
 }
 
+h2 {
+	color: var(--subtitle);
+	font-size: clamp(20px, 15cqw, 32px);
+	font-weight: 800;
+}
+
 #gameboard {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	flex-wrap: wrap;
 	gap: 5vw;
+	margin: 0 5vw;
 }
 
 .gameboard {
+	flex: 1 1 375px;
 	width: 40vw;
 	aspect-ratio: 1 / 1;
 	display: grid;
@@ -68,11 +76,21 @@ h1 {
 	gap: 2px;
 }
 
+.gameboard-container {
+	display: flex;
+	flex: 1 1 375px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5em;
+}
+
 .cell {
 	background-color: var(--surface-medium);
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: clamp(32px, 100%, 70px);
 	aspect-ratio: 1 / 1;
 	font-weight: 900;
 	font-size: 24px;
@@ -81,6 +99,7 @@ h1 {
 
 .gameboard p {
 	display: flex;
+	height: clamp(32px, 100%, 70px);
 	justify-content: center;
 	align-items: center;
 	aspect-ratio: 1 / 1;
@@ -101,4 +120,12 @@ h1 {
 
 .shake {
 	animation: shake 200ms ease-in-out;
+}
+
+.ship {
+	display: grid;
+}
+
+#carrier {
+	grid-template-columns: repeat(5, )
 }
