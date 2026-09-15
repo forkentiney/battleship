@@ -1,3 +1,4 @@
+import interact from 'interactjs';
 import './style.css';
 import red from "./static/icons/circle-fill-red.svg";
 import white from "./static/icons/circle-fill-white.svg";
@@ -17,36 +18,10 @@ const playGame = () => {
 	const compCells = document.querySelectorAll("#computer > *");
 	const computerBoard = gameBoard();
 
-	let draggedShip = null;
-	playerShips.forEach(ship => {
-		ship.addEventListener("dragstart", () => {
-			draggedShip = ship;
-		});
-	
-		ship.addEventListener("dragend", () => {
-			draggedShip = null;
-		});
-	});
-
 	playerCells.forEach(cell => {
 		cell.addEventListener("click", () => {
 			updateCell(cell, "shake");
 			console.log("You cannot fire into your own waters");
-		});
-	
-		cell.addEventListener("dragover", (event) => {
-			event.preventDefault();
-		});
-	
-		cell.addEventListener("dragenter", () => {
-			cell.style.backgroundColor = "grey";
-		});
-	
-		cell.addEventListener("dragleave", () => {
-			cell.style.backgroundColor = "blue";
-		});
-	
-		cell.addEventListener("drop", () => {
 		});
 	});
 
