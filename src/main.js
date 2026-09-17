@@ -40,18 +40,18 @@ const playGame = () => {
 		ship.style.width = height;
 	};
 
-	interact('#player > *').dropzone({
+	interact('#player > .cell').dropzone({
 		accept: '.ship',
 		overlap: 'pointer',
 
 		ondragenter: function (event) {
-			let dropzoneElement = event.target
+			event.target.classList.add('dragging-over')
 		},
 		ondragleave: function (event) {
-			event.target.classList.remove('ship')
+			event.target.classList.remove('dragging-over')
 		},
 		ondrop: function (event) {
-			event.target.classList.remove('ship')
+			event.target.classList.remove('dragging-over')
 			event.target.appendChild(event.relatedTarget)
 			event.relatedTarget.style.transform = 'none'
 		}
