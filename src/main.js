@@ -9,14 +9,71 @@ import {
 } from './game.js';
 
 const playGame = () => {
+	let playing = false;
 	// Select DOM elements and create gameboards
 	const playerBoard = document.querySelector("#player");
 	const playerCells = document.querySelectorAll("#player > *");
-	const playerShips = document.querySelectorAll("#game-pieces > *");
 	const playerGameBoard = gameBoard();
 	const compBoard = document.querySelector("#computer");
 	const compCells = document.querySelectorAll("#computer > *");
 	const computerBoard = gameBoard();
+
+	const ships = document.querySelectorAll(".ship");
+	const carrier = document.querySelector('#carrier');
+	const battleship = document.querySelector('#battleship');
+	const destroyer = document.querySelector('#destroyer');
+	const submarine = document.querySelector('#submarine');
+	const patrolBoat = document.querySelector('#patrol-boat');
+
+	ships.forEach(ship => {
+		ship.addEventListener("click", () => {
+			if (playing) return;
+			rotateShip(ship);
+		});
+	});
+
+	const rotateShip = (ship) => {
+		const shipStyle = ship.style;
+		const height = shipStyle.getPropertyValue('height');
+		const width = shipStyle.getPropertyValue('width');
+		ship.style.height = width;
+		ship.style.width = height;
+	};
+
+	interact('#player > *').dropzone({
+		accept: '.ship',
+		overlap: 'pointer',
+
+		ondragenter: function (event) {
+			let dropzoneElement = event.target
+		},
+		ondragleave: function (event) {
+			event.target.classList.remove('ship')
+		},
+		ondrop: function (event) {
+			event.target.classList.remove('ship')
+			event.target.appendChild(event.relatedTarget)
+			event.relatedTarget.style.transform = 'none'
+		}
+	})
+
+	const position = { x: 0, y: 0 };
+	interact('.ship')
+		.draggable({
+			listeners: {
+				move (event) {
+					position.x += event.dx
+					position.y += event.dy
+
+					event.target.style.transform =
+						`translate(${position.x}px, ${position.y}px)`
+				},
+				end (event) {
+					position.x = 0;
+					position.y = 0;
+				},
+			}
+		})
 
 	playerCells.forEach(cell => {
 		cell.addEventListener("click", () => {
