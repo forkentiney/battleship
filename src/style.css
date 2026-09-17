@@ -57,40 +57,40 @@ h2 {
 	font-weight: 800;
 }
 
-#gameboard {
+.flex-centered {
 	display: flex;
-	flex-direction: row;
 	justify-content: center;
+	align-items: center;
+}
+
+.column {
+	flex-direction: column;
+}
+
+#gameboard {
 	flex-wrap: wrap;
 	gap: 5vw;
 	margin: 0 5vw;
 }
 
 .gameboard {
+	display: grid;
+	grid-template-rows: repeat(11, 1fr);
+	grid-template-columns: repeat(11, 1fr);
 	position: relative;
 	flex: 1 1 375px;
 	width: 40vw;
 	aspect-ratio: 1 / 1;
-	display: grid;
-	grid-template-rows: repeat(11, 1fr);
-	grid-template-columns: repeat(11, 1fr);
 }
 
 .gameboard-container {
-	display: flex;
 	flex: 1 1 375px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 	gap: 0.5em;
 }
 
 .cell {
 	box-sizing: content-box;
 	background-color: var(--surface-medium);
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	height: clamp(32px, 100%, 70px);
 	aspect-ratio: 1 / 1;
 	font-weight: 900;
@@ -107,9 +107,9 @@ h2 {
 
 .gameboard p {
 	display: flex;
-	height: clamp(32px, 100%, 70px);
 	justify-content: center;
 	align-items: center;
+	height: clamp(32px, 100%, 70px);
 	aspect-ratio: 1 / 1;
 	font-weight: 900;
 	font-size: clamp(14px, 1cqw, 24px);
@@ -139,7 +139,6 @@ h2 {
 	position: absolute;
 	top: 0;
 	left: 0;
-	display: flex;
 	background-color: var(--overlay-medium);
 	border-radius: 50%;
 	border: 1px solid black;
