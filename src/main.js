@@ -72,7 +72,13 @@ const playGame = () => {
 					position.x = 0;
 					position.y = 0;
 				},
-			}
+			},
+			modifiers: [
+				interact.modifiers.restrictRect({
+					restriction: '#player',
+					endOnly: true
+				})
+			]
 		})
 
 	playerCells.forEach(cell => {
