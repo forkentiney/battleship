@@ -135,7 +135,7 @@ h2 {
 }
 
 .ship {
-	z-index: 6;
+	z-index: 4;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -143,4 +143,22 @@ h2 {
 	border-radius: 50%;
 	border: 1px solid black;
 	box-shadow: 3px 3px 3px var(--overlay-dark);
+}
+
+button {
+	font-weight: 700;
+	font-size: 20px;
+	background-color: var(--pane-dark);
+	padding: 24px 48px;
+	border: 2px solid var(--overlay-light);
+	border-radius: 20px;
+	user-select: none;
+}
+
+button:hover {
+	background-color: var(--surface-dark);
+}
+
+.hidden {
+	display: none;
 }

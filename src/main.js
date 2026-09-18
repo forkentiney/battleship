@@ -25,6 +25,66 @@ const playGame = () => {
 	const submarine = document.querySelector('#submarine');
 	const patrolBoat = document.querySelector('#patrol-boat');
 
+	const start = document.querySelector('#start');
+
+	const placePlayerShips = () => {
+		const placeEachShip = () => {
+			ships.forEach(boat => {
+				const id = boat.parentElement.id;
+				const coord = [parseInt(id.charAt(1)), parseInt(id.charAt(2))];
+
+				let orientation = null;
+				const boatStyle = boat.style;
+				if (boatStyle.getPropertyValue('height') === "100%") {
+					orientation = "horizontal";
+				} else {
+					orientation = "vertical";
+				};
+
+				let i = null;
+				if (boat.id === "carrier") {
+					i = 1;
+				} else if (boat.id === "battleship") {
+					i = 2;
+				} else if (boat.id === "destroyer") {
+					i = 3;
+				} else if (boat.id === "submarine") {
+					i = 4;
+				} else if (boat.id === "patrol-boat") {
+					i = 5;
+				};
+
+				console.log(`Coord: ${coord}, Orientation: ${orientation}, Ship: ${i}`);
+
+				if (playerGameBoard.placeShip(ship(i), coord, orientation) === "Invalid location") {
+					return false;
+				};
+			});
+			return true;
+		};
+		if (placeEachShip()) {
+			return true;
+		} else {
+			while(playerGameBoard.shipPlacements.length > 0) {
+				playerGameBoard.shipPlacements.pop();
+			};
+			return false;
+		};
+		return true;
+	};
+
+	start.addEventListener("click", () => {
+		if (placePlayerShips()) {
+			playing = true;
+			ships.forEach(ship => {
+				ship.style.zIndex = 4;
+			});
+			start.classList.add("hidden");
+		} else {
+			console.log("Be sure to place ships correctly");
+		};
+	});
+
 	ships.forEach(ship => {
 		ship.addEventListener("click", () => {
 			if (playing) return;
@@ -118,15 +178,6 @@ const playGame = () => {
 		};
 	})();
 
-	const placePlayerShips = (() => {
-		// This function should place ships randomly.
-		// For now, placements are static.
-		playerGameBoard.placeShip(ship(1), [6, 6], "vertical");
-		playerGameBoard.placeShip(ship(2), [0, 2], "horizontal");
-		playerGameBoard.placeShip(ship(3), [1, 8], "horizontal");
-		playerGameBoard.placeShip(ship(4), [2, 6], "vertical");
-		playerGameBoard.placeShip(ship(5), [8, 8], "horizontal");
-	})();
 	
 	const attackSpot = (board, spot) => {
 		const coord = [parseInt(spot.id.charAt(1)), parseInt(spot.id.charAt(2))];
