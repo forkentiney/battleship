@@ -28,7 +28,7 @@ const playGame = () => {
 	const start = document.querySelector('#start');
 
 	// Take arranged ships on board and attempt to place them in the game
-	const placePlayerShips = (boat, index, array) => {
+	const placePlayerShips = (boat) => {
 			const id = boat.parentElement.id;
 			const boatStyle = boat.style;
 			const coord = [parseInt(id.charAt(1)), parseInt(id.charAt(2))];
@@ -67,6 +67,7 @@ const playGame = () => {
 			playing = true;
 			ships.forEach(ship => {
 				ship.style.zIndex = 4;
+				ship.style.pointerEvents = "none";
 			});
 			start.classList.add("hidden");
 		} else {
