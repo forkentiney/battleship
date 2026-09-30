@@ -135,8 +135,10 @@ const playGame = () => {
 
 	playerCells.forEach(cell => {
 		cell.addEventListener("click", () => {
-			updateCell(cell, "shake");
-			console.log("You cannot fire into your own waters");
+			if (playing) {
+				updateCell(cell, "shake");
+				console.log("You cannot fire into your own waters");
+			};
 		});
 	});
 
