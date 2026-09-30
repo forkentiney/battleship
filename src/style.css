@@ -135,6 +135,11 @@ h2 {
 	animation: shake 200ms ease-in-out;
 }
 
+@keyframes shoot {
+	0% { transform: translateX(100vw) translateY(-25vh); }
+	100% { transform: translateX(0) translateY(0); }
+}
+
 .ship {
 	z-index: 4;
 	position: absolute;
@@ -162,4 +167,20 @@ button:hover {
 
 .hidden {
 	display: none;
+}
+
+.bullet {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	animation: shoot 1s linear;
+	height: 100%;
+	aspect-ratio: 1 / 1;
+	background: transparent;
+	z-index: 10;
+	color: gold;
+	font-size: 72px;
+	position: absolute;
+	top: 0;
+	left: 0;
 }

@@ -180,18 +180,38 @@ const playGame = () => {
 	const attackSpot = (board, spot) => {
 		const coord = [parseInt(spot.id.charAt(1)), parseInt(spot.id.charAt(2))];
 		const result = board.receiveAttack(coord);
+		const bullet = document.createElement("div");
+		bullet.textContent = "·";
+		bullet.classList.add("bullet");
+		spot.appendChild(bullet);
 		console.log(result);
 		if (result === "You hit!") {
-			updateCell(spot, "red");
+			bullet.addEventListener('animationend', () => {
+				bullet.remove();
+				updateCell(spot, "red");
+			});
 		} else if (result === "You missed.") {
-			updateCell(spot, "white");
+			bullet.addEventListener('animationend', () => {
+				bullet.remove();
+				updateCell(spot, "white");
+			});
 		} else {
 			if (spot.id.charAt(0) === "c") {
+				bullet.remove();
 				updateCell(spot, "shake");
 				return;
-			} else computerMove();
+			} else {
+				bullet.remove();
+				computerMove();
+			}
 		};
-		if (spot.id.charAt(0) === "c") computerMove();
+		if (spot.id.charAt(0) === "c") {
+			bullet.addEventListener('animationend', () => {
+				bullet.remove();
+				computerMove();
+			});
+		};
+			
 		return result;
 	};
 
