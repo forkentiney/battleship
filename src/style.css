@@ -68,7 +68,6 @@ h2 {
 }
 
 #gameboard {
-	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: 5vw;
 	margin: 0 5vw;
