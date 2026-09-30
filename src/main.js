@@ -27,60 +27,52 @@ const playGame = () => {
 
 	const start = document.querySelector('#start');
 
-	const placePlayerShips = () => {
-		const placeEachShip = () => {
-			ships.forEach(boat => {
-				const id = boat.parentElement.id;
-				const coord = [parseInt(id.charAt(1)), parseInt(id.charAt(2))];
+	// Take arranged ships on board and attempt to place them in the game
+	const placePlayerShips = (boat, index, array) => {
+			const id = boat.parentElement.id;
+			const boatStyle = boat.style;
+			const coord = [parseInt(id.charAt(1)), parseInt(id.charAt(2))];
 
-				let orientation = null;
-				const boatStyle = boat.style;
-				if (boatStyle.getPropertyValue('height') === "100%") {
-					orientation = "horizontal";
-				} else {
-					orientation = "vertical";
-				};
-
-				let i = null;
-				if (boat.id === "carrier") {
-					i = 1;
-				} else if (boat.id === "battleship") {
-					i = 2;
-				} else if (boat.id === "destroyer") {
-					i = 3;
-				} else if (boat.id === "submarine") {
-					i = 4;
-				} else if (boat.id === "patrol-boat") {
-					i = 5;
-				};
-
-				console.log(`Coord: ${coord}, Orientation: ${orientation}, Ship: ${i}`);
-
-				if (playerGameBoard.placeShip(ship(i), coord, orientation) === "Invalid location") {
-					return false;
-				};
-			});
-			return true;
-		};
-		if (placeEachShip()) {
-			return true;
-		} else {
-			while(playerGameBoard.shipPlacements.length > 0) {
-				playerGameBoard.shipPlacements.pop();
+			let orientation;
+			if (boatStyle.getPropertyValue('height') === "100%") {
+				orientation = "horizontal";
+			} else {
+				orientation = "vertical";
 			};
-			return false;
-		};
-		return true;
+
+			let i;
+			if (boat.id === "carrier") {
+				i = 1;
+			} else if (boat.id === "battleship") {
+				i = 2;
+			} else if (boat.id === "destroyer") {
+				i = 3;
+			} else if (boat.id === "submarine") {
+				i = 4;
+			} else if (boat.id === "patrol-boat") {
+				i = 5;
+			};
+
+			console.log(`Coord: ${coord}, Orientation: ${orientation}, Ship: ${i}`);
+
+			if (playerGameBoard.placeShip(ship(i), coord, orientation) === "Invalid location") {
+				return false;
+			} else {
+				return true;
+			};
 	};
 
 	start.addEventListener("click", () => {
-		if (placePlayerShips()) {
+		if ([...ships].every(placePlayerShips)) {
 			playing = true;
 			ships.forEach(ship => {
 				ship.style.zIndex = 4;
 			});
 			start.classList.add("hidden");
 		} else {
+			while(playerGameBoard.shipPlacements.length > 0) {
+				playerGameBoard.shipPlacements.pop();
+			};
 			console.log("Be sure to place ships correctly");
 		};
 	});
@@ -149,7 +141,10 @@ const playGame = () => {
 	});
 
 	compCells.forEach(cell => {
-		cell.addEventListener("click", () => attackSpot(computerBoard, cell));
+		cell.addEventListener("click", () => {
+			if (playing) attackSpot(computerBoard, cell)
+			else return;
+		});
 	});
 
 	const createCoord = () => {
