@@ -68,6 +68,7 @@ h2 {
 }
 
 #gameboard {
+	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: 5vw;
 	margin: 0 5vw;
@@ -78,18 +79,17 @@ h2 {
 	grid-template-rows: repeat(11, 1fr);
 	grid-template-columns: repeat(11, 1fr);
 	position: relative;
-	flex: 1 1 375px;
-	width: 40vw;
+	flex-basis: 100%;
+	width: 100%;
 	aspect-ratio: 1 / 1;
 }
 
 .gameboard-container {
-	flex: 1 1 375px;
 	gap: 0.5em;
+	width: 40vw;
 }
 
 .cell {
-	box-sizing: content-box;
 	background-color: var(--surface-medium);
 	height: clamp(32px, 100%, 70px);
 	aspect-ratio: 1 / 1;
