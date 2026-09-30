@@ -103,6 +103,7 @@ h2 {
 .cell img {
 	z-index: 5;
 	background-color: transparent;
+	pointer-events: none;
 }
 
 .gameboard p {
