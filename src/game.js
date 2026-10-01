@@ -144,6 +144,12 @@ function gameBoard() {
 		return true;
 	};
 
+	const resetBoard = () => {
+		while(shipPlacements.length > 0) shipPlacements.pop();
+		while(misses.length > 0) misses.pop();
+		while(hits.length > 0) hits.pop();
+	};
+
 	return {
 		shipPlacements,
 		placeShip,
@@ -151,6 +157,7 @@ function gameBoard() {
 		misses,
 		hits,
 		areAllShipsSunk,
+		resetBoard,
 	};
 };
 
