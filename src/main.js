@@ -2,6 +2,7 @@ import interact from 'interactjs';
 import './style.css';
 import red from "./static/icons/circle-fill-red.svg";
 import white from "./static/icons/circle-fill-white.svg";
+import empty from "./static/icons/circle.svg";
 import {
 	player,
 	ship,
@@ -18,6 +19,8 @@ const playGame = () => {
 	const compCells = document.querySelectorAll("#computer > *");
 	const computerBoard = gameBoard();
 
+	const allCells = document.querySelectorAll(".cell");
+
 	const ships = document.querySelectorAll(".ship");
 	const carrier = document.querySelector('#carrier');
 	const battleship = document.querySelector('#battleship');
@@ -27,6 +30,20 @@ const playGame = () => {
 
 	const start = document.querySelector('#start');
 	const messages = document.querySelector('#messages');
+	const gameOverButton = messages.querySelector("button");
+	
+	gameOverButton.addEventListener('click', () => {
+		start.classList.remove("hidden");
+		allCells.forEach(cell => {
+			updateCell(cell, "reset");
+		});
+		ships.forEach(ship => {
+			ship.style.pointerEvents = "auto";
+		});
+		messages.classList.add("hidden");
+		playerGameBoard.resetBoard();
+		computerBoard.resetBoard();
+	});
 
 	// Take arranged ships on board and attempt to place them in the game
 	const placePlayerShips = (boat) => {
@@ -65,9 +82,9 @@ const playGame = () => {
 
 	start.addEventListener("click", () => {
 		if ([...ships].every(placePlayerShips)) {
+			placeComputerShips();
 			playing = true;
 			ships.forEach(ship => {
-				ship.style.zIndex = 4;
 				ship.style.pointerEvents = "none";
 			});
 			start.classList.add("hidden");
@@ -165,8 +182,7 @@ const playGame = () => {
 		};
 	};
 
-	// Place computer ships on board IIFE
-	const placeComputerShips = (() => {
+	const placeComputerShips = () => {
 		for (let i = 1; i < 6; i++) {
 			function placeShip() {
 				const coord = createCoord();
@@ -175,7 +191,7 @@ const playGame = () => {
 			};
 			placeShip();
 		};
-	})();
+	};
 
 	
 	const attackSpot = (board, spot) => {
@@ -234,6 +250,9 @@ const playGame = () => {
 		} else if (type === "white") {
 			cellImg.src = white;
 			cellImg.alt = "-";
+		} else if (type === "reset") {
+			cellImg.src = empty;
+			cellImg.alt = "o";
 		} else {
 			cellImg.classList.add("shake");
 			cellImg.addEventListener("animationend", () => {
