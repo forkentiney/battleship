@@ -231,6 +231,9 @@ const playGame = () => {
 					result.placement.forEach(place => {
 						const cellIcon = document.querySelector(`#c${place[0]}${place[1]} > img`);
 						cellIcon.classList.add("flash");
+						cellIcon.addEventListener('animationend', () => {
+							cellIcon.classList.remove("flash");
+						});
 					});
 				};
 				if (board.areAllShipsSunk()) {
