@@ -56,11 +56,12 @@ header {
 	position: absolute;
 	justify-content: space-around;
 	height: 25vh;
-	width: 30vw;
+	width: clamp(250px, 35vw, 500px);
 	background-color: var(--pane-dark);
 	border: 2px solid var(--overlay-medium);
 	border-radius: 10px;
 	box-shadow: 8px 8px 8px black;
+	padding: 6px 18px;
 }
 
 .confirm {
@@ -100,7 +101,8 @@ h2 {
 }
 
 h3 {
-	font-size: 3cqw;
+	font-size: clamp(20px, 5cqw, 32px);
+	text-align: center;
 }
 
 .flex-centered {

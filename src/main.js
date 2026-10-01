@@ -30,6 +30,7 @@ const playGame = () => {
 
 	const start = document.querySelector('#start');
 	const messages = document.querySelector('#messages');
+	const message = messages.querySelector("h3");
 	const gameOverButton = messages.querySelector("button");
 	
 	gameOverButton.addEventListener('click', () => {
@@ -89,10 +90,8 @@ const playGame = () => {
 			});
 			start.classList.add("hidden");
 		} else {
-			while(playerGameBoard.shipPlacements.length > 0) {
-				playerGameBoard.shipPlacements.pop();
-			};
-			console.log("Be sure to place ships correctly");
+			message.textContent = "Be sure to place ships appropriately";
+			messages.classList.remove("hidden");
 		};
 	});
 
@@ -208,7 +207,6 @@ const playGame = () => {
 				updateCell(spot, "red");
 				if (board.areAllShipsSunk()) {
 					playing = false;
-					const message = messages.querySelector("h3");
 					if (board === computerBoard) {
 						message.textContent = "You Win!";
 					} else {
