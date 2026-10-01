@@ -129,7 +129,8 @@ function gameBoard() {
 				if (isOverlap(coord, coordinate)) {
 					shipPlacements[i].hit();
 					hits.push(coordinate);
-					return "You hit!";
+					const shipObject = shipPlacements[i];
+					return shipObject;
 				};
 			};
 		};

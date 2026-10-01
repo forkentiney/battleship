@@ -77,8 +77,6 @@ const playGame = () => {
 				i = 5;
 			};
 
-			console.log(`Coord: ${coord}, Orientation: ${orientation}, Ship: ${i}`);
-
 			if (playerGameBoard.placeShip(ship(i), coord, orientation) === "Invalid location") {
 				return false;
 			} else {
@@ -205,8 +203,27 @@ const playGame = () => {
 		bullet.textContent = "·";
 		bullet.classList.add("bullet");
 		spot.appendChild(bullet);
-		console.log(result);
-		if (result === "You hit!") {
+		const hitDetails = {
+			coord: null,
+			adjacentCells: [],
+			ship: null,
+		};
+		if (typeof result === "object") {
+			hitDetails.coord = coord;
+			if (result.hits() > 1) {
+				hitDetails.adjacentCells = result.placement;
+			} else {
+				const adjacentCells = [ 
+					[coord[0] + 1, coord[1]],
+					[coord[0] - 1, coord[1]],
+					[coord[0], coord[1] + 1],
+					[coord[0], coord[1] - 1], 
+				];
+				adjacentCells.forEach(cell => {
+					if (cell[0] <= 9 && cell[0] >= 0 && cell[1] <= 9 && cell[1] >= 0) hitDetails.adjacentCells.push(cell);
+				});
+			};
+			hitDetails.ship = result;
 			bullet.addEventListener('animationend', () => {
 				bullet.remove();
 				updateCell(spot, "red");
@@ -221,6 +238,8 @@ const playGame = () => {
 				};
 			});
 		} else if (result === "You missed.") {
+			hitDetails.ship = null;
+			hitDetails.coord = null;
 			bullet.addEventListener('animationend', () => {
 				bullet.remove();
 				updateCell(spot, "white");
@@ -242,7 +261,7 @@ const playGame = () => {
 			});
 		};
 			
-		return result;
+		return hitDetails;
 	};
 
 	function updateCell(cell, type) {
@@ -264,10 +283,23 @@ const playGame = () => {
 		};
 	};
 
+	let computerPreviousHit = {ship: null, coord: null, nextAttack: [],};
 	function computerMove() {
-		const coord = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+		let coord;
+		if (computerPreviousHit.ship && !computerPreviousHit.ship.isSunk()) {
+			coord = computerPreviousHit.nextAttack.shift();
+		} else {
+			coord = createCoord();
+		}
 		const cell = document.querySelector(`#p${coord[0]}${coord[1]}`);
-		attackSpot(playerGameBoard, cell);
+		const result = attackSpot(playerGameBoard, cell);
+		if (result.ship) {
+			computerPreviousHit = {
+				ship: result.ship, 
+				coord: result.coord, 
+				nextAttack: result.adjacentCells.slice(),
+			};
+		};
 	};
 };
 
