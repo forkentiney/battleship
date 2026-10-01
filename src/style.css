@@ -47,6 +47,7 @@ header {
 
 #body {
 	min-height: 90vh;
+	overflow: hidden;
 }
 
 #messages {
