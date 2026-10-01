@@ -229,3 +229,75 @@ h3 {
 	top: 0;
 	left: 0;
 }
+
+.icon {
+	height: 2em;
+	width: auto;
+	margin: 1em 4px;
+}
+
+footer {
+	z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+	gap: 1em;
+  font-size: 14px;
+	min-height: 8em;
+	background-color: var(--pane-dark);
+	box-shadow: 0px -4px 24px var(--pane-dark);
+	border-top: 2px solid var(--overlay-light);
+	padding: 24px 0;
+}
+
+#license,
+#credit,
+#contact {
+	grid-row: 1;
+	justify-content: center;
+}
+
+#license {
+  grid-column: 1;
+}
+
+#credit {
+  grid-column: 2;
+}
+
+#contact {
+  grid-column: 3;
+}
+
+#socials {
+  display: flex;
+	gap: clamp(2px, 2em, 5vw);
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 800px) {
+
+	footer {
+		grid-template-columns: 1fr;
+	}
+
+	#license,
+	#credit,
+	#contact {
+		grid-column: 1;
+	}
+
+	#credit {
+		grid-row: 1;
+	}
+
+	#contact {
+		grid-row: 2;
+	}
+
+	#license {
+		grid-row: 3;
+	}
+}
