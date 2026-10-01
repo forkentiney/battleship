@@ -32,7 +32,12 @@ const playGame = () => {
 	const messages = document.querySelector('#messages');
 	const message = messages.querySelector("h3");
 	const gameOverButton = messages.querySelector("button");
-	
+
+	const displayInstructions = (() => {
+		message.textContent = "Drag to move ships, click to rotate";
+		messages.classList.remove("hidden");
+	})();
+
 	gameOverButton.addEventListener('click', () => {
 		start.classList.remove("hidden");
 		allCells.forEach(cell => {
