@@ -45,6 +45,44 @@ header {
 	align-items: center;
 }
 
+#body {
+	min-height: 90vh;
+}
+
+#messages {
+	z-index: 10;
+	position: absolute;
+	justify-content: space-around;
+	height: 25vh;
+	width: 30vw;
+	background-color: var(--pane-dark);
+	border: 2px solid var(--overlay-medium);
+	border-radius: 10px;
+	box-shadow: 8px 8px 8px black;
+}
+
+.confirm {
+	height: 20%;
+	width: 50%;
+	background-color: var(--overlay-medium);
+	border-radius: 12px;
+}
+
+.front {
+	height: 100%;
+	width: 100%;
+	color: black;
+	font-weight: 800;
+	background-color: var(--overlay-light);
+	transform: translateY(-8px);
+	border-radius: 12px;
+	border: 1px solid var(--bg-pane);
+}
+
+.confirm:active .front {
+	transform: translateY(-2px);
+}
+
 h1 {
 	color: var(--text);
 	font-size: clamp(60px, 15vw, 90px);
@@ -57,6 +95,10 @@ h2 {
 	font-size: clamp(20px, 15cqw, 32px);
 	font-weight: 800;
 	text-shadow: 4px 4px 4px var(--overlay-dark);
+}
+
+h3 {
+	font-size: 3cqw;
 }
 
 .flex-centered {
@@ -153,7 +195,7 @@ h2 {
 	box-shadow: 3px 3px 3px var(--overlay-dark);
 }
 
-button {
+#start {
 	font-weight: 700;
 	font-size: 20px;
 	background-color: var(--pane-dark);
@@ -164,7 +206,7 @@ button {
 	margin: 2em;
 }
 
-button:hover {
+#start:hover {
 	background-color: var(--surface-dark);
 }
 
