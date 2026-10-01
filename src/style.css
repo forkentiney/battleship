@@ -201,6 +201,15 @@ h3 {
 	touch-action: none;
 }
 
+@keyframes flash {
+	50% { opacity: 0; }
+}
+
+.flash {
+	animation: flash 400ms ease-in-out;
+	animation-iteration-count: 3;
+}
+
 #start {
 	font-weight: 700;
 	font-size: 20px;

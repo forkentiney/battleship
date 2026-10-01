@@ -3,7 +3,6 @@ import './style.css';
 import red from "./static/icons/circle-fill-red.svg";
 import white from "./static/icons/circle-fill-white.svg";
 import empty from "./static/icons/circle.svg";
-import blue from "./static/icons/circle-fill-blue.svg";
 import {
 	player,
 	ship,
@@ -231,7 +230,7 @@ const playGame = () => {
 				if (result.isSunk() && board === computerBoard) {
 					result.placement.forEach(place => {
 						const cellIcon = document.querySelector(`#c${place[0]}${place[1]} > img`);
-						cellIcon.src = blue;
+						cellIcon.classList.add("flash");
 					});
 				};
 				if (board.areAllShipsSunk()) {
