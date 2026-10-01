@@ -26,6 +26,7 @@ const playGame = () => {
 	const patrolBoat = document.querySelector('#patrol-boat');
 
 	const start = document.querySelector('#start');
+	const messages = document.querySelector('#messages');
 
 	// Take arranged ships on board and attempt to place them in the game
 	const placePlayerShips = (boat) => {
@@ -189,6 +190,16 @@ const playGame = () => {
 			bullet.addEventListener('animationend', () => {
 				bullet.remove();
 				updateCell(spot, "red");
+				if (board.areAllShipsSunk()) {
+					playing = false;
+					const message = messages.querySelector("h3");
+					if (board === computerBoard) {
+						message.textContent = "You Win!";
+					} else {
+						message.textContent = "You Lose!";
+					}
+					messages.classList.remove("hidden");
+				};
 			});
 		} else if (result === "You missed.") {
 			bullet.addEventListener('animationend', () => {
